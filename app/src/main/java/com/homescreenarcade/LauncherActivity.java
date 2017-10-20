@@ -25,7 +25,8 @@ public class LauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.launcher_activity);
-
+        Intent mis = new Intent(this,MyIntentService.class);
+        this.startService(mis);
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             // ACTION_CHANGE_LIVE_WALLPAPER wasn't supported before JB, so hide the buttons. They'll 
             // just have to figure out how to set the LWPs themselves.
