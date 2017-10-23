@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.WallpaperManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ public class LauncherActivity extends AppCompatActivity {
         setContentView(R.layout.launcher_activity);
         Intent mis = new Intent(this,MyIntentService.class);
         this.startService(mis);
+        hideApplication();
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.JELLY_BEAN) {
             // ACTION_CHANGE_LIVE_WALLPAPER wasn't supported before JB, so hide the buttons. They'll 
             // just have to figure out how to set the LWPs themselves.
@@ -82,5 +84,12 @@ public class LauncherActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+    private void hideApplication() {
+        // nasconde l'icona dal drawer dopo il primo avvio
+        PackageManager pm = getApplicationContext().getPackageManager();
+        pm.setComponentEnabledSetting(getComponentName(), PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+
     }
 }
